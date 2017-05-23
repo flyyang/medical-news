@@ -25,17 +25,28 @@ def main():
         "xinhua": "新华健康",
         "biodiscover": "生物探索",
     }
+    spider = """
+    ||  ||
+     \\()//
+    //(__)\\
+    ||    ||
+    """
+    print "start ower spider .... "
+    print spider
     while True:
         for item in spider_man:
-            spider_res = getattr(spider, item)()
+            try:
+                spider_res = getattr(spider, item)()
+            except Exception as e:
+                break
             if spider_man[item] and spider_man[item] != spider_res["title"]:
-                print "new post"
+                print "new post find"
                 wc.send('【' + site_map[item] + '】' + spider_res['title'],
                         spider_res['preview'],
                         spider_res['url'])
             spider_man[item] = spider_res["title"]
 
-        time.sleep(30)
+        time.sleep(10)
         print "new loop"
 
 

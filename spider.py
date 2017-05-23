@@ -1,9 +1,19 @@
 # encoding= utf-8
 from pyquery import PyQuery as pq
 
-def hc3i():
+def make_request(url):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            try:
+                d = pq(url=url, encoding="utf-8")
+            except Exception as e:
+                raise e
+            return func(d)
+        return wrapper
+    return decorator
+@make_request("http://www.hc3i.cn")
+def hc3i(d):
     """中国数字医疗网"""
-    d = pq(url="http://www.hc3i.cn", encoding="utf-8")
     element = d(".news .element")
     preview = element(".wrap .con").eq(0).text()
     title = element(".wrap .name a").eq(0).text()
@@ -15,9 +25,10 @@ def hc3i():
         "url": url,
     }
 
-def iyiou():
+
+@make_request("http://www.iyiou.com/i/yiliao")
+def iyiou(d):
     """亿欧"""
-    d = pq(url="http://www.iyiou.com/i/yiliao", encoding="utf-8")
     li = d(".content-rpmain .active li").eq(0)
     a = li("a").eq(0)
     url = a.attr('href')
@@ -29,9 +40,10 @@ def iyiou():
         "url": url,
     }
 
-def sina():
+
+@make_request("http://med.sina.com/")
+def sina(d):
     """新浪医药"""
-    d = pq(url="http://med.sina.com/", encoding="utf-8")
     li = d(".news_1List li").eq(0)
     a = li(".indextitle-text a").eq(0)
     url = a.attr('href')
@@ -43,9 +55,9 @@ def sina():
         "url": url,
     }
 
-def hchina():
+@make_request("http://health.china.com.cn/")
+def hchina(d):
     """健康中国"""
-    d = pq(url="http://health.china.com.cn/", encoding="utf-8")
     li = d(".rzuo .d1").eq(0)
     a = li("a").eq(0)
     url = a.attr('href')
@@ -57,9 +69,9 @@ def hchina():
         "url": "http://health.china.com.cn/" + url,
     }
 
-def vcbeat():
+@make_request("http://vcbeat.net/")
+def vcbeat(d):
     """动脉网"""
-    d = pq(url="http://vcbeat.net/", encoding="utf-8")
     li = d(".content li").eq(0)
     a = li("a").eq(1)
     url = a.attr('href')
@@ -72,9 +84,9 @@ def vcbeat():
         "url": "http://vcbeat.net/" + url,
     }
 
-def ckxx():
+@make_request("http://www.cankaoxiaoxi.com/science/jksh/")
+def ckxx(d):
     """参考消息"""
-    d = pq(url="http://www.cankaoxiaoxi.com/science/jksh/", encoding="utf-8")
     li = d(".inner li").eq(0)
     a = li("a").eq(0)
     url = a.attr('href')
@@ -87,22 +99,24 @@ def ckxx():
         "url": url,
     }
 
-def xinhua():
+@make_request("http://www.news.cn/health/")
+def xinhua(d):
     """新华健康"""
-    d = pq(url="http://www.news.cn/health/", encoding="utf-8")
     news = d(".headNews").eq(0)
     a = news("a").eq(0)
 
     url = a.attr('href')
     title = a.text()
     preview = news('.ywzy').text()
-
     return {
         "title": title,
         "preview": preview,
         "url": url,
     }
-def biodiscover():
+
+
+@make_request("http://www.biodiscover.com/news.html")
+def biodiscover(d):
     """生物探索"""
     d = pq(url="http://www.biodiscover.com/news.html", encoding="utf-8")
     news = d(".list_info .list_div").eq(0)
