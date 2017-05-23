@@ -33,7 +33,7 @@ def sina():
     """新浪医药"""
     d = pq(url="http://med.sina.com/", encoding="utf-8")
     li = d(".news_1List li").eq(0)
-    a = li("a").eq(0)
+    a = li("a").eq(1)
     url = a.attr('href')
     title = a.text()
     preview = li(".indextext-ms").text()
