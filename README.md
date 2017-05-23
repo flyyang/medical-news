@@ -19,4 +19,4 @@
 
 每当以上网站有内容更新时，推送通知到指定应用，所有关注者都可以查看。
 
-<img src="demo.jpg" width="150" height="300">
+<img src="demo.jpg" width="250" height="600">
