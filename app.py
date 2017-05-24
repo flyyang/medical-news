@@ -15,7 +15,6 @@ def main():
         "sina": "",
         "hchina": "",
         "vcbeat": "",
-        "ckxx": "",
         "xinhua": "",
         "biodiscover": "",
     }

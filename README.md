@@ -11,7 +11,6 @@
 * [新浪医药](http://med.sina.com/)
 * [健康中国](http://health.china.com.cn/)
 * [动脉网](http://vcbeat.net/)
-* [参考消息](http://www.cankaoxiaoxi.com)
 * [新华健康](http://www.news.cn/health/)
 * [生物探索（biodiscovery）](http://www.news.cn/health/)
 
