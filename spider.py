@@ -1,6 +1,7 @@
 # encoding= utf-8
 from pyquery import PyQuery as pq
 import functools
+import logging
 
 def make_request(url):
     def decorator(func):
@@ -9,7 +10,7 @@ def make_request(url):
             try:
                 d = pq(url=url, encoding="utf-8")
             except Exception as e:
-                raise e
+                logging.error(e)
             return func(d)
         return wrapper
     return decorator

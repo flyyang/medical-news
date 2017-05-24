@@ -2,6 +2,10 @@
 import time
 import spider
 from wechat import WeChat
+import logging
+from const import LOG_FILE
+
+logging.basicConfig(filename=LOG_FILE, level=logging.INFO)
 
 def main():
     wc = WeChat()
@@ -31,25 +35,25 @@ def main():
     //(__)\\
     ||    ||
     """
-    print "start ower spider .... "
-    print spider_bug
+    logging.info("start ower spider .... ")
+    logging.info(spider_bug)
     while True:
         for item in spider_man:
-            spider_res = getattr(spider, item)()
-            print spider_res["title"]
             try:
                 spider_res = getattr(spider, item)()
-            except:
-                break
+            except Exception as e:
+                logging.error(e)
+                continue
+            logging.info(u'【' + site_map[item] + u'】' + spider_res['title'])
             if spider_man[item] and spider_man[item] != spider_res["title"]:
-                print "new post find"
+                logging.info("new post find:")
                 wc.send(u'【' + site_map[item] + u'】' + spider_res['title'],
                         spider_res['preview'],
                         spider_res['url'])
             spider_man[item] = spider_res["title"]
 
         time.sleep(10)
-        print "new loop"
+        logging.info("new loop")
 
 
 if __name__ == '__main__':
