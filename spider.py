@@ -1,8 +1,10 @@
 # encoding= utf-8
 from pyquery import PyQuery as pq
+import functools
 
 def make_request(url):
     def decorator(func):
+        @functools.wraps(func)
         def wrapper(*args, **kwargs):
             try:
                 d = pq(url=url, encoding="utf-8")
